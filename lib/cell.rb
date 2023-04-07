@@ -1,10 +1,12 @@
 class Cell
 attr_reader :coordinate,
-            :ship
+            :ship,
+            :fired_upon
 
   def initialize(coordinate)
     @coordinate = coordinate
     @ship = nil
+    @fired_upon = false
   end
 
   def empty?
@@ -16,6 +18,12 @@ attr_reader :coordinate,
   end
 
   def fired_upon?
-    require 'pry'; binding.pry
+    @fired_upon
+  end
+
+  def fire_upon
+    @fired_upon = true
+    !empty?
+    ship.hit
   end
 end
