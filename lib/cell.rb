@@ -1,7 +1,7 @@
 class Cell
 attr_reader :coordinate,
             :ship
-            
+
   def initialize(coordinate)
     @coordinate = coordinate
     @ship = nil
@@ -13,6 +13,9 @@ attr_reader :coordinate,
 
   def place_ship(new_ship)
     @ship = new_ship
+  end
 
+  def fired_upon?
+    require 'pry'; binding.pry
   end
 end
