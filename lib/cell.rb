@@ -7,6 +7,7 @@ attr_reader :coordinate,
     @coordinate = coordinate
     @ship = nil
     @fired_upon = false
+    #@render_value = ""
   end
 
   def empty?
@@ -23,7 +24,24 @@ attr_reader :coordinate,
 
   def fire_upon
     @fired_upon = true
-    !empty?
-    ship.hit
+    if !empty?
+      ship.hit
+    end
+    
   end
+
+  def render
+    if fired_upon? && empty?
+      "M"
+    else
+      empty?
+      "."
+    end
+  end
+
 end
+
+# ”.” if the cell has not been fired upon.
+# “M” if the cell has been fired upon and it does not contain a ship (the shot was a miss).
+# “H” if the cell has been fired upon and it contains a ship (the shot was a hit).
+# “X” if the cell has been fired upon and its ship has been sunk.
