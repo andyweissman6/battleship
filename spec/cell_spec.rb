@@ -37,20 +37,25 @@ RSpec.describe Cell do
     end
   end
 
-
+  describe "#fired_upon?" do
+    it "determines if cell has been fired upon" do
+      cell.place_ship(cruiser)
+      expect(cell.fired_upon?).to eq(false)
+    end
+  end
 end
 
 
 
-
-
-# pry(main)> cruiser = Ship.new("Cruiser", 3)
-# # => #<Ship:0x00007f84f0891238...>
-
 # pry(main)> cell.place_ship(cruiser)
 
-# pry(main)> cell.ship
-# # => #<Ship:0x00007f84f0891238...>
-
-# pry(main)> cell.empty?
+# pry(main)> cell.fired_upon?
 # # => false
+
+# pry(main)> cell.fire_upon
+
+# pry(main)> cell.ship.health
+# # => 2
+
+# pry(main)> cell.fired_upon?
+# => true
