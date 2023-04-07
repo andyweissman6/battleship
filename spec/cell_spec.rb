@@ -43,19 +43,17 @@ RSpec.describe Cell do
       expect(cell.fired_upon?).to eq(false)
     end
   end
+
+  describe "#fire_upon" do
+    it "fires upon a cell" do
+      cell.place_ship(cruiser)
+      cell.fire_upon
+      expect(cell.ship.health).to eq(2)
+      expect(cell.fired_upon?).to eq(true)
+    end
+  end
 end
 
 
 
-# pry(main)> cell.place_ship(cruiser)
 
-# pry(main)> cell.fired_upon?
-# # => false
-
-# pry(main)> cell.fire_upon
-
-# pry(main)> cell.ship.health
-# # => 2
-
-# pry(main)> cell.fired_upon?
-# => true
