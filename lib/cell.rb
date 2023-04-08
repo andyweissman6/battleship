@@ -30,15 +30,15 @@ attr_reader :coordinate,
     
   end
 
-  def render
+  def render(access = false)
     if fired_upon? && empty?
       "M"
+    elsif access && !empty? && !fired_upon?
+      "S"
     else
-      empty?
       "."
     end
   end
-
 end
 
 # ”.” if the cell has not been fired upon.
