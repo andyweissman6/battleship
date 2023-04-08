@@ -56,6 +56,7 @@ RSpec.describe Cell do
 
   describe "#render" do
     let(:cell_1) {Cell.new("B4")}
+    let(:cell_2) {Cell.new("C3")}
 
     it "renders a cell that hasn't been fired upon" do
       expect(cell_1.render).to eq(".") 
@@ -64,7 +65,16 @@ RSpec.describe Cell do
     it "fires upon an empty cell and misses" do
       cell_1.fire_upon
       expect(cell_1.render).to eq("M") 
+    end
 
+    it "renders a new cell" do
+      cell_2.place_ship(cruiser)
+      expect(cell_2.render).to eq(".")
+    end
+
+    it "renders a 'S' if cell holds ship and access is available" do
+      cell_2.place_ship(cruiser)
+      expect(cell_2.render(true)).to eq("S")
     end
   end
 end
@@ -72,27 +82,9 @@ end
 
 
 
-# > cell_1 = Cell.new("B4")
-# # => #<Cell:0x00007f84f11df920...>
 
-# > cell_1.render
-# # => "."
 
-# > cell_1.fire_upon
 
-# > cell_1.render
-# # => "M"
-
-# > cell_2 = Cell.new("C3")
-# # => #<Cell:0x00007f84f0b29d10...>
-
-# > cruiser = Ship.new("Cruiser", 3)
-# # => #<Ship:0x00007f84f0ad4fb8...>
-
-# > cell_2.place_ship(cruiser)
-
-# > cell_2.render
-# # => "."
 
 # # Indicate that we want to show a ship with the optional argument
 # > cell_2.render(true)
