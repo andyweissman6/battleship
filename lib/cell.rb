@@ -39,7 +39,7 @@ attr_reader :coordinate,
     elsif @ship.sunk? 
       "X"
     else 
-      !empty? && fired_upon? 
+      # !empty? && fired_upon? 
       "H"
     end
   end
