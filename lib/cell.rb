@@ -35,6 +35,8 @@ attr_reader :coordinate,
       "M"
     elsif access && !empty? && !fired_upon?
       "S"
+    elsif !empty? && fired_upon? 
+      "H"
     else
       "."
     end
