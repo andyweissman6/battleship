@@ -82,6 +82,17 @@ RSpec.describe Cell do
       cell_2.fire_upon
       expect(cell_2.render).to eq("H")
     end
+
+    it "ship gets hit 3 times, if sunk? equals true render cell to 'X' " do
+      cell_2.place_ship(cruiser)
+      cell_2.fire_upon
+      expect(cruiser.sunk?).to eq(false)
+      
+      cruiser.hit
+      cruiser.hit
+      expect(cruiser.sunk?).to eq(true)
+      expect(cell_2.render).to eq("X")
+    end
   end
 end
 
