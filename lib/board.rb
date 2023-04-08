@@ -25,7 +25,15 @@ class Board
     cells.include?(coordinate)
   end
 
+  
   def valid_placement?(ship, coordinates)
     coordinates.length == ship.length
+    cruiser_cons = cells.each_cons(3) {|cell| require 'pry'; binding.pry}
+  end
+  
+
+  #helper method 
+  def consecutive_coordinates
+
   end
 end
