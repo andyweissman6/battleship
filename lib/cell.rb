@@ -5,9 +5,8 @@ attr_reader :coordinate,
 
   def initialize(coordinate)
     @coordinate = coordinate
-    @ship = nil
+    @ship = ship
     @fired_upon = false
-    #@render_value = ""
   end
 
   def empty?
@@ -30,15 +29,20 @@ attr_reader :coordinate,
     
   end
 
-  def render
-    if fired_upon? && empty?
-      "M"
-    else
-      empty?
+  def render(access = false)
+    if access == true && !empty? && !fired_upon?
+      "S"
+    elsif !fired_upon?
       "."
+    elsif fired_upon? && empty?
+      "M"
+    elsif @ship.sunk? 
+      "X"
+    else 
+      # !empty? && fired_upon? 
+      "H"
     end
   end
-
 end
 
 # ”.” if the cell has not been fired upon.
