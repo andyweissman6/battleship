@@ -76,6 +76,12 @@ RSpec.describe Cell do
       cell_2.place_ship(cruiser)
       expect(cell_2.render(true)).to eq("S")
     end
+
+    it "renders a 'H' if the cell has been fired upon, contains a ship (the shot was a hit)" do
+      cell_2.place_ship(cruiser)
+      cell_2.fire_upon
+      expect(cell_2.render).to eq("H")
+    end
   end
 end
 
@@ -86,14 +92,9 @@ end
 
 
 
-# # Indicate that we want to show a ship with the optional argument
-# > cell_2.render(true)
-# # => "S"
 
-# > cell_2.fire_upon
 
-# > cell_2.render
-# # => "H"
+
 
 # > cruiser.sunk?
 # # => false
