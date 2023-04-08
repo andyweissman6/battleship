@@ -5,9 +5,8 @@ attr_reader :coordinate,
 
   def initialize(coordinate)
     @coordinate = coordinate
-    @ship = nil
+    @ship = ship
     @fired_upon = false
-    #@render_value = ""
   end
 
   def empty?
@@ -31,14 +30,17 @@ attr_reader :coordinate,
   end
 
   def render(access = false)
-    if fired_upon? && empty?
-      "M"
-    elsif access && !empty? && !fired_upon?
+    if access == true && !empty? && !fired_upon?
       "S"
-    elsif !empty? && fired_upon? 
-      "H"
-    else
+    elsif !fired_upon?
       "."
+    elsif fired_upon? && empty?
+      "M"
+    elsif @ship.sunk? 
+      "X"
+    else 
+      !empty? && fired_upon? 
+      "H"
     end
   end
 end
