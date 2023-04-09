@@ -71,48 +71,31 @@ class Board
   
   
   def valid_placement?(ship, coordinates)
-    length_equals_ship(ship, coordinates) && consecutive_coordinates(ship, coordinates) 
+    length_equals_ship(ship, coordinates) && consecutive_coordinates(ship, coordinates) && overlapping?(ship, coordinates)
   end
     
     
   def place(ship, coordinates)
     if valid_placement?(ship, coordinates) && all_valid_coordinates?(ship, coordinates)
       coordinates.each { |coordinate| cells[coordinate].place_ship(ship) } 
-      # enumerate over coordinates being passed through, and place the ship being passed through into the individual cell object's ship attribute.                                      
     end
   end
   
-
   #helper method 
 
-    def length_equals_ship(ship, coordinates)
-      coordinates.length == ship.length
-    end
+  def length_equals_ship(ship, coordinates)
+    coordinates.length == ship.length
+  end
 
-    def consecutive_coordinates(ship, coordinates)
-      @valid_cruiser.include?(coordinates) || @valid_submarine.include?(coordinates)
-    end
+  def consecutive_coordinates(ship, coordinates)
+    @valid_cruiser.include?(coordinates) || @valid_submarine.include?(coordinates)
+  end
 
-    def all_valid_coordinates?(ship, coordinates)
-      coordinates.all? { |coordinate| valid_coordinate?(coordinate) }
-    end
-    
-  # def consecutive_coordinates?
-  #   letters = "A".."D"
-  #   nums = 1..4
-  #   let_arr = letters.to_a
-  #   nums_arr = nums.to_a
-  #   letter = let_arr.each_cons(3).map { |let| let }
-  #   number = nums_arr.each_cons(3).map { |num| num }
-  #   require 'pry'; binding.pry
+  def all_valid_coordinates?(ship, coordinates)
+    coordinates.all? { |coordinate| valid_coordinate?(coordinate) }
+  end
 
-  #   # valid_coordinates = letter.each do |let| 
-  #   #                       number.map do |nums|
-                            
-
-    
-      
-    
-   
-  # end
+  def overlapping?(ship, coordinates)
+    coordinates.all? { |coordinate| cells[coordinate].empty? } 
+  end 
 end
