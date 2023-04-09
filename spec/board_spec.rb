@@ -83,6 +83,16 @@ RSpec.describe Board do
     end
   end
 
+  describe "#render" do
+    let(:cruiser) {Ship.new("Cruiser", 3)}
+
+    it "will render an empty board" do
+      board.place(cruiser, ["A1", "A2", "A3"])
+      expect(board.render).to eq("  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n")
+      expect(board.render(true)).to eq("  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n")
+    end
+  end
+
   describe "#helper methods" do
   let(:cruiser) {Ship.new("Cruiser", 3)}
   let(:submarine) {Ship.new("Submarine", 2)}
@@ -98,7 +108,6 @@ RSpec.describe Board do
   end
 end
 ## add tests for helper methods in own describe block
-
 
 
 
