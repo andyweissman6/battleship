@@ -29,15 +29,19 @@ RSpec.describe Board do
     let(:cruiser) {Ship.new("Cruiser", 3)}
     let(:submarine) {Ship.new("Submarine", 2)}
 
-    xit "checks if number of coordinates in array is the same as the length of the cruiser" do
+    it "checks if number of coordinates in array is the same as the length of the cruiser" do
       expect(board.valid_placement?(cruiser, ["A1", "A2"])).to eq(false)
       expect(board.valid_placement?(cruiser, ["A1", "A2", "A3"])).to eq(true)
     end
 
-    xit "checks if number of coordinates in array is the same as the length of the submarine" do
+    it "checks if number of coordinates in array is the same as the length of the submarine" do
       expect(board.valid_placement?(submarine, ["A2", "A3", "A4"])).to eq(false)
       expect(board.valid_placement?(submarine, ["A2", "A3"])).to eq(true)
     end
+
+    # it "helper for consecutive coordinates" do
+    #   expect(board.consecutive_coordinates?).to eq()
+    # end
 
     it "make sure the coordinates are consecutive" do
       expect(board.valid_placement?(cruiser, ["A1", "A2", "A4"])).to eq(false)
