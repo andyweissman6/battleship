@@ -19,6 +19,7 @@ class Board
       "D3" => Cell.new("D3"),
       "D4" => Cell.new("D4")
               }
+              
 
     @valid_cruiser = [["A1", "B1", "C1"], 
                       ["A2", "B2", "C2"], 
@@ -67,14 +68,19 @@ class Board
   def valid_coordinate?(coordinate)
     cells.include?(coordinate)
   end
-
+  
   
   def valid_placement?(ship, coordinates)
     length_equals_ship(ship, coordinates) && consecutive_coordinates(ship, coordinates) 
   end
     
     
-
+  def place(ship, coordinates)
+    if valid_placement?(ship, coordinates) && all_valid_coordinates?(ship, coordinates)
+      coordinates.each { |coordinate| cells[coordinate].place_ship(ship) } 
+      # enumerate over coordinates being passed through, and place the ship being passed through into the individual cell object's ship attribute.                                      
+    end
+  end
   
 
   #helper method 
@@ -87,7 +93,9 @@ class Board
       @valid_cruiser.include?(coordinates) || @valid_submarine.include?(coordinates)
     end
 
-    
+    def all_valid_coordinates?(ship, coordinates)
+      coordinates.all? { |coordinate| valid_coordinate?(coordinate) }
+    end
     
   # def consecutive_coordinates?
   #   letters = "A".."D"
