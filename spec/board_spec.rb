@@ -29,7 +29,7 @@ RSpec.describe Board do
     let(:cruiser) {Ship.new("Cruiser", 3)}
     let(:submarine) {Ship.new("Submarine", 2)}
 
-    it "checks if number of coordinates in array is the same as the length of the cruiser" do
+    it "checks if number of coordinates in array is the same as the length of the cruiser" do      
       expect(board.valid_placement?(cruiser, ["A1", "A2"])).to eq(false)
       expect(board.valid_placement?(cruiser, ["A1", "A2", "A3"])).to eq(true)
     end
@@ -54,8 +54,11 @@ RSpec.describe Board do
     it "final placement validation" do
       expect(board.valid_placement?(submarine, ["A1", "A2"])).to eq(true)
       expect(board.valid_placement?(cruiser, ["B1", "C1", "D1"])).to eq(true)
+    end
       
-      
+    it "ensures ships are not overlapping" do
+      board.place(cruiser, ["A1", "A2", "A3"])
+      expect(board.valid_placement?(submarine, ["A1", "B1"])).to eq(false)
     end
   end
 
@@ -77,25 +80,25 @@ RSpec.describe Board do
       expect(cell_3.ship == cell_2.ship).to eq(true)
       expect(cell_1.ship == cell_3.ship).to eq(true)
       expect(cell_1.ship == cell_4.ship).to eq(false)
-      require 'pry'; binding.pry
     end
   end
 
+  describe "#helper methods" do
+  let(:cruiser) {Ship.new("Cruiser", 3)}
+  let(:submarine) {Ship.new("Submarine", 2)}
 
+    it "#length_equals_ship" do
+      board.place(cruiser, ["A1", "A2", "A3"])
+      board.place(submarine, ["A1", "A2"])
 
-  ## add tests for helper methods in own describe block
+      expect(board.length_equals_ship(cruiser, ["A1", "A2", "A3"])).to eq(true)
+      expect(board.length_equals_ship(submarine, ["A1", "A2"])).to eq(true)
+      expect(board.length_equals_ship(cruiser, ["A1", "A2"])).to eq(false)
+    end
+  end
 end
+## add tests for helper methods in own describe block
 
 
 
-# pry(main)> cell_1.ship
-# # => #<Ship:0x00007fcb0e1ffa28...>
 
-# pry(main)> cell_2.ship
-# # => #<Ship:0x00007fcb0e1ffa28...>
-
-# pry(main)> cell_3.ship
-# # => #<Ship:0x00007fcb0e1ffa28...>
-
-# pry(main)> cell_3.ship == cell_2.ship
-# # => true
