@@ -54,10 +54,48 @@ RSpec.describe Board do
     it "final placement validation" do
       expect(board.valid_placement?(submarine, ["A1", "A2"])).to eq(true)
       expect(board.valid_placement?(cruiser, ["B1", "C1", "D1"])).to eq(true)
+      
+      
     end
   end
+
+  describe "#place/2" do
+    let(:cruiser) {Ship.new("Cruiser", 3)}
+    
+    it "places a ship into cells on the board" do
+      board.place(cruiser, ["A1", "A2", "A3"])
+      cell_1 = board.cells["A1"]
+      cell_2 = board.cells["A2"]
+      cell_3 = board.cells["A3"]
+      cell_4 = board.cells["A4"]
+      cell_1.ship 
+      cell_2.ship 
+      cell_3.ship 
+      expect(cell_1.ship).to eq(cruiser)
+      expect(cell_2.ship).to eq(cruiser)
+      expect(cell_3.ship).to eq(cruiser)
+      expect(cell_3.ship == cell_2.ship).to eq(true)
+      expect(cell_1.ship == cell_3.ship).to eq(true)
+      expect(cell_1.ship == cell_4.ship).to eq(false)
+      require 'pry'; binding.pry
+    end
+  end
+
+
 
   ## add tests for helper methods in own describe block
 end
 
 
+
+# pry(main)> cell_1.ship
+# # => #<Ship:0x00007fcb0e1ffa28...>
+
+# pry(main)> cell_2.ship
+# # => #<Ship:0x00007fcb0e1ffa28...>
+
+# pry(main)> cell_3.ship
+# # => #<Ship:0x00007fcb0e1ffa28...>
+
+# pry(main)> cell_3.ship == cell_2.ship
+# # => true
