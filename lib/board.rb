@@ -20,7 +20,7 @@ class Board
       "D4" => Cell.new("D4")
               }
 
-    @valid_crusier = [["A1", "B1", "C1"], 
+    @valid_cruiser = [["A1", "B1", "C1"], 
                       ["A2", "B2", "C2"], 
                       ["A3", "B3", "C3"], 
                       ["A4", "B4", "C4"], 
@@ -70,7 +70,7 @@ class Board
 
   
   def valid_placement?(ship, coordinates)
-    coordinates.length == ship.length
+    length_equals_ship(ship, coordinates) && consecutive_coordinates(ship, coordinates) 
   end
     
     
@@ -78,6 +78,17 @@ class Board
   
 
   #helper method 
+
+    def length_equals_ship(ship, coordinates)
+      coordinates.length == ship.length
+    end
+
+    def consecutive_coordinates(ship, coordinates)
+      @valid_cruiser.include?(coordinates) || @valid_submarine.include?(coordinates)
+    end
+
+    
+    
   # def consecutive_coordinates?
   #   letters = "A".."D"
   #   nums = 1..4
