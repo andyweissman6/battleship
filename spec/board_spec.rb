@@ -1,6 +1,5 @@
-require './lib/board'
-require './lib/cell' 
-require './lib/ship'
+require 'spec_helper'
+
 
 RSpec.describe Board do
   let(:board) {Board.new}
