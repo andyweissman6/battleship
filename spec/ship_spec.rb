@@ -2,7 +2,7 @@ require 'spec_helper'
 
 
 RSpec.describe Ship do
-  describe "#iteration 1: create Ship object" do
+  describe "create Ship object" do
     it "exists" do
       cruiser = Ship.new("Cruiser", 3)
 

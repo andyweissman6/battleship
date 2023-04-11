@@ -4,7 +4,7 @@ require 'spec_helper'
 RSpec.describe Board do
   let(:board) {Board.new}
 
-  describe "#iteration 2: create Board object" do
+  describe "create Board object" do
     it "exists" do
       expect(board).to be_a(Board)
     end
@@ -38,6 +38,10 @@ RSpec.describe Board do
       expect(board.valid_placement?(submarine, ["A2", "A3"])).to eq(true)
     end
 
+    it "tests cells that are off board" do
+      expect(board.valid_placement?(submarine, ["G2", "G3", "G69"])).to eq(false)
+    end
+
     it "make sure the coordinates are consecutive" do
       expect(board.valid_placement?(cruiser, ["A1", "A2", "A4"])).to eq(false)
       expect(board.valid_placement?(submarine, ["A1", "C1"])).to eq(false)
@@ -48,6 +52,10 @@ RSpec.describe Board do
     it "can't be diagonal" do
       expect(board.valid_placement?(cruiser, ["A1", "B2", "C3"])).to eq(false)
       expect(board.valid_placement?(submarine, ["C2", "D3"])).to eq(false)
+    end
+
+    it "cannot wrap around board" do
+      expect(board.valid_placement?(cruiser, ["A3", "A4", "B1"])).to eq(false)
     end
 
     it "final placement validation" do
@@ -129,6 +137,6 @@ RSpec.describe Board do
   end
 end
 ## add tests for helper methods in own describe block
-
-
+# consecutive_coordinates(ship, coordinates)
+# all_valid_coordinates?(ship, coordinates)
 
