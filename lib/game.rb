@@ -7,12 +7,14 @@ class Game
     @cpu_submarine = Ship.new("Submarine", 2)
     @human_cruiser = Ship.new("Cruiser", 3)
     @human_submarine = Ship.new("Submarine", 2)
-
+    
   end
 
   def start_game
     main_menu
-
+    place_cpu_submarine
+    place_cpu_cruiser
+    main_menu
   end
   
   
@@ -32,4 +34,25 @@ class Game
       main_menu
     end
   end
+
+  def place_cpu_cruiser
+    @cpu_crusier 
+    choose_coordinates = cpu.board.cells.keys.sample(3)
+    if @cpu.board.valid_placement?(@cpu_cruiser, choose_coordinates)
+      @cpu.board.place(@cpu_cruiser, choose_coordinates)
+    else
+      place_cpu_cruiser
+    end
+  end
+
+  def place_cpu_submarine
+    @cpu_submarine
+    choose_coordinates = cpu.board.cells.keys.sample(2)
+    if @cpu.board.valid_placement?(@cpu_submarine, choose_coordinates)
+      @cpu.board.place(@cpu_submarine, choose_coordinates)
+    else
+      place_cpu_submarine
+    end
+  end
+
 end
