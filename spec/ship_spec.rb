@@ -1,5 +1,5 @@
-require 'rspec'
-require './lib/ship'
+require 'spec_helper'
+
 
 RSpec.describe Ship do
   describe "#iteration 1: create Ship object" do
