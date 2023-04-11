@@ -54,5 +54,43 @@ class Game
       place_cpu_submarine
     end
   end
+  
 
 end
+
+# human cruiser place: #print "ihave laid my ships your turn, explanation of ships and to lay out ships, enter cells for cruiser"
+              #print unrendered board, "enter the squares for cruiser" as example, write code for human input and place human cruiser. needs conditionals for invalid inputs
+              #render human user board with placed cruiser. render(true)
+              #valid_placement?(ship, coordinates)
+#human submarine place:
+              #write code for humain input for submarine. needs conditionals for invalid inputs
+              #render human user board with placed ships render(true)
+              #valid_placement?(ship, coordinates)
+    
+    #turn: User board is displayed showing hits, misses, sunken ships, and ships
+    # -use render(true) to render human user board w/ place_ships showing
+
+    # Computer board is displayed showing hits, misses, and sunken ships
+    # use render (no access). Before first turn will display empty board
+
+    # Computer chooses a random shot
+    # - valid_cordinate?(ship, coordinates)
+
+    # Computer does not fire on the same spot twice
+    # - if cordinate already called once, it will not be called again. Conditiional?
+    # - valid_cordinate?(ship, coordinates)
+
+    # User can choose a valid coordinate to fire on
+    # - create code for human input
+
+    # Entering invalid coordinate prompts user to enter valid coordinate
+    # - valid_cordinate?(ship, coordinates). Conditional/invalid?
+
+    # Both computer and player shots are reported as a hit, sink, or miss
+    # "You missed", "I missed", or "You hit"....
+
+    # User is informed when they have already fired on a coordinate
+    # - valid_cordinate?(ship, coordinates). Conditional/invalid?
+
+    # Board is updated after a turn
+    # - render board w/ hits, misses, sunk after each turn
