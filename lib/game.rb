@@ -16,16 +16,17 @@ class Game
     place_cpu_cruiser
     place_human_cruiser
     place_human_submarine
+    player_turn
     main_menu
   end
   
   
   
-  
   def main_menu
+  # def main_menu(input)
+  # require 'pry'; binding.pry
     puts 'Welcome to BATTLESHIP
-    Enter p to play. Enter q to quit.'
-    
+    Enter p to play. Enter q to quit.' 
     input = gets.chomp
     if input == 'p'
       puts "Let's play"
@@ -33,6 +34,7 @@ class Game
       puts "Quitter"
     else
       puts "Invalid input"
+      input = gets.chomp
       main_menu
     end
   end
@@ -58,8 +60,7 @@ class Game
   end
 
   def place_human_cruiser
-    puts "I have laid out my ships on the grid.
-    You now need to lay out your two ships.
+    puts "I have laid out my ships on the grid. You now need to lay out your two ships.
     The Cruiser is three units long and the Submarine is two units long.
       1 2 3 4
     A . . . .
@@ -69,7 +70,7 @@ class Game
     Enter the squares for the Cruiser (3 spaces):
     >"
     @human_cruiser
-    human_input = gets.chomp.split
+    human_input = gets.chomp.upcase.split
     if @human.board.valid_placement?(@human_cruiser, human_input)
       @human.board.place(@human_cruiser, human_input)
       puts @human.board.render(true)
@@ -80,10 +81,10 @@ class Game
   end
   
   def place_human_submarine
-    puts "Enter the squares for the Submarine (2 spaces):
+    puts "Enter the squares for the Submarine (2 spaces): 
     >"
     @human_submarine
-    human_input = gets.chomp.split
+    human_input = gets.chomp.upcase.split
     if @human.board.valid_placement?(@human_submarine, human_input)
       @human.board.place(@human_submarine, human_input)
       puts @human.board.render(true)
@@ -92,6 +93,38 @@ class Game
       place_human_submarine
     end
   end
+
+  def player_turn
+    display_boards
+    puts "Enter the coordinate for your shot:
+    >"
+    human_input = gets.chomp.upcase
+    if @cpu.board.valid_coordinate?(human_input) && !@cpu.board.cells[human_input].fired_upon?
+      @cpu.board.cells[human_input].fire_upon
+      if @cpu.board.cells[human_input].render == "M"
+        puts "Your shot on #{human_input} was a MISS."
+      elsif @cpu.board.cells[human_input].render == "H"
+        puts "Your shot on #{human_input} was a HIT."
+      else
+        @cpu.board.cells[human_input].render == "X"
+        puts "Your shot on #{human_input} sunk my battleship."
+      end
+      puts display_boards
+    else
+      puts "Invalid input. Choose new coordinate."
+      player_turn
+    end
+  end
+  
+  # helper methods
+
+  def display_boards
+    puts "====================COMPUTER BOARD===================="
+    puts @cpu.board.render
+    puts "====================PLAYER BOARD===================="
+    puts @human.board.render(true)
+  end
+
 
 
 end
