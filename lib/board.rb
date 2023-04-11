@@ -71,7 +71,9 @@ class Board
   
   
   def valid_placement?(ship, coordinates)
-    length_equals_ship(ship, coordinates) && consecutive_coordinates(ship, coordinates) && overlapping?(ship, coordinates)
+    length_equals_ship(ship, coordinates) && 
+    consecutive_coordinates(ship, coordinates) && 
+    overlapping?(ship, coordinates)
   end
     
     
@@ -84,10 +86,10 @@ class Board
   def render(access = false)
     if access == true
       "  1 2 3 4 \n" +
-      "A #{cells["A1"].render(true)} #{cells["A2"].render(true)} #{cells["A3"].render(true)} #{cells["A4"].render(true)} \n" +
-      "B #{cells["B1"].render(true)} #{cells["B2"].render(true)} #{cells["B3"].render(true)} #{cells["B4"].render(true)} \n" +
-      "C #{cells["C1"].render(true)} #{cells["C2"].render(true)} #{cells["C3"].render(true)} #{cells["C4"].render(true)} \n" +
-      "D #{cells["D1"].render(true)} #{cells["D2"].render(true)} #{cells["D3"].render(true)} #{cells["D4"].render(true)} \n"
+      "A #{cells["A1"].render(access)} #{cells["A2"].render(access)} #{cells["A3"].render(access)} #{cells["A4"].render(access)} \n" +
+      "B #{cells["B1"].render(access)} #{cells["B2"].render(access)} #{cells["B3"].render(access)} #{cells["B4"].render(access)} \n" +
+      "C #{cells["C1"].render(access)} #{cells["C2"].render(access)} #{cells["C3"].render(access)} #{cells["C4"].render(access)} \n" +
+      "D #{cells["D1"].render(access)} #{cells["D2"].render(access)} #{cells["D3"].render(access)} #{cells["D4"].render(access)} \n"
     else
       "  1 2 3 4 \n" +
       "A #{cells["A1"].render} #{cells["A2"].render} #{cells["A3"].render} #{cells["A4"].render} \n" +
