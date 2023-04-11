@@ -14,6 +14,8 @@ class Game
     main_menu
     place_cpu_submarine
     place_cpu_cruiser
+    place_human_cruiser
+    place_human_submarine
     main_menu
   end
   
@@ -54,14 +56,50 @@ class Game
       place_cpu_submarine
     end
   end
+
+  def place_human_cruiser
+    puts "I have laid out my ships on the grid.
+    You now need to lay out your two ships.
+    The Cruiser is three units long and the Submarine is two units long.
+      1 2 3 4
+    A . . . .
+    B . . . .
+    C . . . .
+    D . . . .
+    Enter the squares for the Cruiser (3 spaces):
+    >"
+    @human_cruiser
+    human_input = gets.chomp.split
+    if @human.board.valid_placement?(@human_cruiser, human_input)
+      @human.board.place(@human_cruiser, human_input)
+      puts @human.board.render(true)
+    else
+      puts "Invalid input. Choose new placement."
+      place_human_cruiser
+    end
+  end
   
+  def place_human_submarine
+    puts "Enter the squares for the Submarine (2 spaces):
+    >"
+    @human_submarine
+    human_input = gets.chomp.split
+    if @human.board.valid_placement?(@human_submarine, human_input)
+      @human.board.place(@human_submarine, human_input)
+      puts @human.board.render(true)
+    else
+      puts "Invalid input. Choose new placement."
+      place_human_submarine
+    end
+  end
+
 
 end
 
 # human cruiser place: #print "ihave laid my ships your turn, explanation of ships and to lay out ships, enter cells for cruiser"
-              #print unrendered board, "enter the squares for cruiser" as example, write code for human input and place human cruiser. needs conditionals for invalid inputs
-              #render human user board with placed cruiser. render(true)
-              #valid_placement?(ship, coordinates)
+        #print unrendered board, "enter the squares for cruiser" as example, write code for human input and place human cruiser. needs conditionals for invalid inputs
+        #render human user board with placed cruiser. render(true)
+        #valid_placement?(ship, coordinates)
 #human submarine place:
               #write code for humain input for submarine. needs conditionals for invalid inputs
               #render human user board with placed ships render(true)
