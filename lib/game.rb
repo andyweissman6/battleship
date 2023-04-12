@@ -56,7 +56,7 @@ class Game
         end
       end
     else
-      puts "Invalid input. Choose new coordinate."
+      puts "#{human_input} is an invalid input or has already been fired upon. Choose new coordinate."
       player_turn
     end
   end
@@ -103,7 +103,6 @@ class Game
     end
   end
   
-# @human_cruiser.sunk? && human_submarine.sunk? || @cpu_cruiser.sunk? && @cpu_submarine.sunk?
   
   # helper methods
   
