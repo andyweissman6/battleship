@@ -49,7 +49,11 @@ class Game
         puts "Your shot on #{human_input} was a HIT."
       else
         @cpu.board.cells[human_input].render == "X"
-        puts "Your shot on #{human_input} sunk my battleship."
+        if @cpu_cruiser.sunk? 
+          puts "Your shot on #{human_input} sunk my #{@cpu_cruiser.name}"
+        else
+          puts "Your shot on #{human_input} sunk my #{@cpu_submarine.name}"
+        end
       end
     else
       puts "Invalid input. Choose new coordinate."
@@ -67,7 +71,11 @@ class Game
         puts "My shot on #{cpu_input.join} was a HIT."
       else
         @human.board.cells[cpu_input.join].render == "X"
-        puts "My shot on #{cpu_input.join} sunk your battleship."
+        if @human_cruiser.sunk? 
+          puts "My shot on #{cpu_input.join} sunk your #{@human_cruiser.name}"
+        else
+          puts "My shot on #{cpu_input.join} sunk your #{@human_submarine.name}"
+        end
       end
     else
       cpu_turn
@@ -82,12 +90,14 @@ class Game
       sleep(2)
       if @cpu_cruiser.sunk? && @cpu_submarine.sunk?
         puts "NOOOOOOOOOO! You Win! Good job nerd!"
+        puts "GAME OVER! Play Again?"
         break
       end
       cpu_turn
       sleep(1)
       if @human_cruiser.sunk? && @human_submarine.sunk?
-        puts "Haha Loser! Game Over! Try again."
+        puts "Haha Loser! I Win!"
+        puts "GAME OVER! Play Again?"
         break
       end
     end
