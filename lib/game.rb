@@ -12,10 +12,104 @@ class Game
 
   def start_game
     main_menu
-    place_cpu_submarine
-    place_cpu_cruiser
-    place_human_cruiser
-    place_human_submarine
+    place_cpu_ships
+    place_human_ships
+    sleep(2)
+    player_turn
+    sleep(2)
+    display_boards
+    sleep(2)
+    cpu_turn
+    sleep(1)
+    display_boards
+    sleep(2)
+    player_turn
+    sleep(2)
+    display_boards
+    sleep(2)
+    cpu_turn
+    sleep(2)
+    player_turn
+    sleep(2)
+    display_boards
+    sleep(2)
+    cpu_turn
+    sleep(1)
+    display_boards
+    sleep(2)
+    player_turn
+    sleep(2)
+    display_boards
+    sleep(2)
+    cpu_turn
+    sleep(2)
+    player_turn
+    sleep(2)
+    display_boards
+    sleep(2)
+    cpu_turn
+    sleep(1)
+    display_boards
+    sleep(2)
+    player_turn
+    sleep(2)
+    display_boards
+    sleep(2)
+    cpu_turn
+    sleep(2)
+    player_turn
+    sleep(2)
+    display_boards
+    sleep(2)
+    cpu_turn
+    sleep(1)
+    display_boards
+    sleep(2)
+    player_turn
+    sleep(2)
+    display_boards
+    sleep(2)
+    cpu_turn
+    sleep(2)
+    player_turn
+    sleep(2)
+    display_boards
+    sleep(2)
+    cpu_turn
+    sleep(1)
+    display_boards
+    sleep(2)
+    player_turn
+    sleep(2)
+    display_boards
+    sleep(2)
+    cpu_turn
+    sleep(1)
+    display_boards
+    sleep(2)
+    player_turn
+    sleep(2)
+    display_boards
+    sleep(2)
+    cpu_turn
+    sleep(1)
+    display_boards
+    sleep(2)
+    player_turn
+    sleep(2)
+    display_boards
+    sleep(2)
+    cpu_turn
+    sleep(1)
+    display_boards
+    sleep(2)
+    player_turn
+    sleep(2)
+    display_boards
+    sleep(2)
+    cpu_turn
+    sleep(1)
+    display_boards
     sleep(2)
     player_turn
     sleep(2)
@@ -24,9 +118,6 @@ class Game
     cpu_turn
     sleep(2)
     display_boards
-    sleep(2)
-    player_turn
-    sleep(2)
     main_menu
   end
   
@@ -34,19 +125,86 @@ class Game
   
   def main_menu
   # def main_menu(input)
-  # require 'pry'; binding.pry
-    puts 'Welcome to BATTLESHIP
-    Enter p to play. Enter q to quit.' 
-    input = gets.chomp
-    if input == 'p'
-      puts "Let's play"
-    elsif input == 'q'
-      puts "Quitter"
+  require 'pry'; binding.pry
+  welcome_screen
+  play_quit_invalid_input
+  end
+
+  def place_cpu_ships
+    place_cpu_cruiser
+    place_cpu_submarine
+  end
+
+  def place_human_ships
+    place_human_cruiser
+    place_human_submarine
+  end
+
+  def player_turn
+    display_boards
+    puts "Enter the coordinate for your shot:
+    >"
+    human_input = gets.chomp.upcase
+    if @cpu.board.valid_coordinate?(human_input) && !@cpu.board.cells[human_input].fired_upon?
+      @cpu.board.cells[human_input].fire_upon
+      if @cpu.board.cells[human_input].render == "M"
+        puts "Your shot on #{human_input} was a MISS."
+      elsif @cpu.board.cells[human_input].render == "H"
+        puts "Your shot on #{human_input} was a HIT."
+      else
+        @cpu.board.cells[human_input].render == "X"
+        puts "Your shot on #{human_input} sunk my battleship."
+      end
     else
-      puts "Invalid input"
-      input = gets.chomp
-      main_menu
+      puts "Invalid input. Choose new coordinate."
+      player_turn
     end
+  end
+
+  def cpu_turn
+    cpu_input = @human.board.cells.keys.sample(1)
+    # require 'pry'; binding.pry
+    if !@human.board.cells[cpu_input.join].fired_upon?
+      @human.board.cells[cpu_input.join].fire_upon
+      if @human.board.cells[cpu_input.join].render == "M"
+        puts "My shot on #{cpu_input.join} was a MISS."
+      elsif @human.board.cells[cpu_input.join].render == "H"
+        puts "My shot on #{cpu_input.join} was a HIT."
+      else
+        @human.board.cells[cpu_input.join].render == "X"
+        puts "My shot on #{cpu_input.join} sunk your battleship."
+      end
+    else
+      cpu_turn
+    end
+  end
+
+  
+  # helper methods
+  
+  def welcome_screen
+    puts '                          |  1  |  2  |  3  |  4  |
+                        --|-----|-----|-----|-----|
+                      A   |     |     |     |     |
+                        --|-----|-----|-----|-----|
+                      B   |     |     |     |     |
+                        --|-----|-----|-----|-----|
+                      C   |     |     |     |     |
+                        --|-----|-----|-----|-----|
+                      D   |     |     |     |     |
+                        --|-----|-----|-----|-----| '
+
+      puts "************************************************************"
+      puts "Welcome to BATTLESHIP
+      Enter p to play. Enter q to quit." 
+      puts "============================================================"
+  end
+
+  def display_boards
+    puts "====================COMPUTER BOARD===================="
+    puts @cpu.board.render
+    puts "====================PLAYER BOARD===================="
+    puts @human.board.render(true)
   end
 
   def place_cpu_cruiser
@@ -104,92 +262,29 @@ class Game
     end
   end
 
-  def player_turn
-    display_boards
-    puts "Enter the coordinate for your shot:
-    >"
-    human_input = gets.chomp.upcase
-    if @cpu.board.valid_coordinate?(human_input) && !@cpu.board.cells[human_input].fired_upon?
-      @cpu.board.cells[human_input].fire_upon
-      if @cpu.board.cells[human_input].render == "M"
-        puts "Your shot on #{human_input} was a MISS."
-      elsif @cpu.board.cells[human_input].render == "H"
-        puts "Your shot on #{human_input} was a HIT."
-      else
-        @cpu.board.cells[human_input].render == "X"
-        puts "Your shot on #{human_input} sunk my battleship."
-      end
+  def play_quit_invalid_input
+    input = gets.chomp
+    if input == 'p'
+      puts "Let's play"
+    elsif input == 'q'
+      puts "Quitter"
     else
-      puts "Invalid input. Choose new coordinate."
-      player_turn
+      puts "Invalid input"
+      input = gets.chomp
+      main_menu
     end
   end
-
-  def cpu_turn
-    cpu_input = @human.board.cells.keys.sample(1)
-    # require 'pry'; binding.pry
-    if !@human.board.cells[cpu_input.join].fired_upon?
-      @human.board.cells[cpu_input.join].fire_upon
-      if @human.board.cells[cpu_input.join].render == "M"
-        puts "My shot on #{cpu_input.join} was a MISS."
-      elsif @human.board.cells[cpu_input.join].render == "H"
-        puts "My shot on #{cpu_input.join} was a HIT."
-      else
-        @human.board.cells[cpu_input.join].render == "X"
-        puts "My shot on #{cpu_input.join} sunk your battleship."
-      end
-    else
-      cpu_turn
-    end
-  end
-
-  
-  # helper methods
-
-  def display_boards
-    puts "====================COMPUTER BOARD===================="
-    puts @cpu.board.render
-    puts "====================PLAYER BOARD===================="
-    puts @human.board.render(true)
-  end
-
-
-
 end
 
-# human cruiser place: #print "ihave laid my ships your turn, explanation of ships and to lay out ships, enter cells for cruiser"
-        #print unrendered board, "enter the squares for cruiser" as example, write code for human input and place human cruiser. needs conditionals for invalid inputs
-        #render human user board with placed cruiser. render(true)
-        #valid_placement?(ship, coordinates)
-#human submarine place:
-              #write code for humain input for submarine. needs conditionals for invalid inputs
-              #render human user board with placed ships render(true)
-              #valid_placement?(ship, coordinates)
-    
-    #turn: User board is displayed showing hits, misses, sunken ships, and ships
-    # -use render(true) to render human user board w/ place_ships showing
+# @human_cruiser.sunk? && human_submarine.sunk? || @cpu_cruiser.sunk? && @cpu_submarine.sunk?
+# need loop for turns
+# need loop for until cruiser+submarine are both sunk for either cpu or human
 
-    # Computer board is displayed showing hits, misses, and sunken ships
-    # use render (no access). Before first turn will display empty board
+# 
 
-    # Computer chooses a random shot
-    # - valid_cordinate?(ship, coordinates)
-
-    # Computer does not fire on the same spot twice
-    # - if cordinate already called once, it will not be called again. Conditiional?
-    # - valid_cordinate?(ship, coordinates)
-
-    # User can choose a valid coordinate to fire on
-    # - create code for human input
-
-    # Entering invalid coordinate prompts user to enter valid coordinate
-    # - valid_cordinate?(ship, coordinates). Conditional/invalid?
-
-    # Both computer and player shots are reported as a hit, sink, or miss
-    # "You missed", "I missed", or "You hit"....
-
-    # User is informed when they have already fired on a coordinate
-    # - valid_cordinate?(ship, coordinates). Conditional/invalid?
-
-    # Board is updated after a turn
-    # - render board w/ hits, misses, sunk after each turn
+#end game method- take in human and cpu ship instances.  
+#once either (human_sub && human_cruiser) || (cpu_sub && cpu_cruiser) == sink
+#puts "game over" 
+#if human_sub && human_cruiser.sink == true puts "you lose"
+#if cpu_sub && cpu_cruiser.sink == true puts "you win
+#return user back to main menu
