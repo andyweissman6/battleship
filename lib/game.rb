@@ -16,7 +16,17 @@ class Game
     place_cpu_cruiser
     place_human_cruiser
     place_human_submarine
+    sleep(2)
     player_turn
+    sleep(2)
+    display_boards
+    sleep(2)
+    cpu_turn
+    sleep(2)
+    display_boards
+    sleep(2)
+    player_turn
+    sleep(2)
     main_menu
   end
   
@@ -109,12 +119,30 @@ class Game
         @cpu.board.cells[human_input].render == "X"
         puts "Your shot on #{human_input} sunk my battleship."
       end
-      puts display_boards
     else
       puts "Invalid input. Choose new coordinate."
       player_turn
     end
   end
+
+  def cpu_turn
+    cpu_input = @human.board.cells.keys.sample(1)
+    # require 'pry'; binding.pry
+    if !@human.board.cells[cpu_input.join].fired_upon?
+      @human.board.cells[cpu_input.join].fire_upon
+      if @human.board.cells[cpu_input.join].render == "M"
+        puts "My shot on #{cpu_input.join} was a MISS."
+      elsif @human.board.cells[cpu_input.join].render == "H"
+        puts "My shot on #{cpu_input.join} was a HIT."
+      else
+        @human.board.cells[cpu_input.join].render == "X"
+        puts "My shot on #{cpu_input.join} sunk your battleship."
+      end
+    else
+      cpu_turn
+    end
+  end
+
   
   # helper methods
 
