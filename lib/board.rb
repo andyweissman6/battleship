@@ -110,21 +110,6 @@ class Board
           "+---+---+---+---+---+\n"
     end
   end
-    # if access == true
-    #   "  1 2 3 4 \n" +
-    #   "A #{cells["A1"].render(access)} #{cells["A2"].render(access)} #{cells["A3"].render(access)} #{cells["A4"].render(access)} \n" +
-    #   "B #{cells["B1"].render(access)} #{cells["B2"].render(access)} #{cells["B3"].render(access)} #{cells["B4"].render(access)} \n" +
-    #   "C #{cells["C1"].render(access)} #{cells["C2"].render(access)} #{cells["C3"].render(access)} #{cells["C4"].render(access)} \n" +
-    #   "D #{cells["D1"].render(access)} #{cells["D2"].render(access)} #{cells["D3"].render(access)} #{cells["D4"].render(access)} \n"
-    # else
-    #   "  1 2 3 4 \n" +
-    #   "A #{cells["A1"].render} #{cells["A2"].render} #{cells["A3"].render} #{cells["A4"].render} \n" +
-    #   "B #{cells["B1"].render} #{cells["B2"].render} #{cells["B3"].render} #{cells["B4"].render} \n" +
-    #   "C #{cells["C1"].render} #{cells["C2"].render} #{cells["C3"].render} #{cells["C4"].render} \n" +
-    #   "D #{cells["D1"].render} #{cells["D2"].render} #{cells["D3"].render} #{cells["D4"].render} \n"
-    # end
-  # end
-  
 
   #helper method 
 
