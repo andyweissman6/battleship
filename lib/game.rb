@@ -10,114 +10,11 @@ class Game
     
   end
 
-  def start_game
+  def play_game
     main_menu
     place_cpu_ships
     place_human_ships
-    sleep(2)
-    player_turn
-    sleep(2)
-    display_boards
-    sleep(2)
-    cpu_turn
-    sleep(1)
-    display_boards
-    sleep(2)
-    player_turn
-    sleep(2)
-    display_boards
-    sleep(2)
-    cpu_turn
-    sleep(2)
-    player_turn
-    sleep(2)
-    display_boards
-    sleep(2)
-    cpu_turn
-    sleep(1)
-    display_boards
-    sleep(2)
-    player_turn
-    sleep(2)
-    display_boards
-    sleep(2)
-    cpu_turn
-    sleep(2)
-    player_turn
-    sleep(2)
-    display_boards
-    sleep(2)
-    cpu_turn
-    sleep(1)
-    display_boards
-    sleep(2)
-    player_turn
-    sleep(2)
-    display_boards
-    sleep(2)
-    cpu_turn
-    sleep(2)
-    player_turn
-    sleep(2)
-    display_boards
-    sleep(2)
-    cpu_turn
-    sleep(1)
-    display_boards
-    sleep(2)
-    player_turn
-    sleep(2)
-    display_boards
-    sleep(2)
-    cpu_turn
-    sleep(2)
-    player_turn
-    sleep(2)
-    display_boards
-    sleep(2)
-    cpu_turn
-    sleep(1)
-    display_boards
-    sleep(2)
-    player_turn
-    sleep(2)
-    display_boards
-    sleep(2)
-    cpu_turn
-    sleep(1)
-    display_boards
-    sleep(2)
-    player_turn
-    sleep(2)
-    display_boards
-    sleep(2)
-    cpu_turn
-    sleep(1)
-    display_boards
-    sleep(2)
-    player_turn
-    sleep(2)
-    display_boards
-    sleep(2)
-    cpu_turn
-    sleep(1)
-    display_boards
-    sleep(2)
-    player_turn
-    sleep(2)
-    display_boards
-    sleep(2)
-    cpu_turn
-    sleep(1)
-    display_boards
-    sleep(2)
-    player_turn
-    sleep(2)
-    display_boards
-    sleep(2)
-    cpu_turn
-    sleep(2)
-    display_boards
+    game_over
     main_menu
   end
   
@@ -125,7 +22,6 @@ class Game
   
   def main_menu
   # def main_menu(input)
-  require 'pry'; binding.pry
   welcome_screen
   play_quit_invalid_input
   end
@@ -153,17 +49,20 @@ class Game
         puts "Your shot on #{human_input} was a HIT."
       else
         @cpu.board.cells[human_input].render == "X"
-        puts "Your shot on #{human_input} sunk my battleship."
+        if @cpu_cruiser.sunk? 
+          puts "Your shot on #{human_input} sunk my #{@cpu_cruiser.name}"
+        else
+          puts "Your shot on #{human_input} sunk my #{@cpu_submarine.name}"
+        end
       end
     else
-      puts "Invalid input. Choose new coordinate."
+      puts "#{human_input} is an invalid input or has already been fired upon. Choose new coordinate."
       player_turn
     end
   end
 
   def cpu_turn
     cpu_input = @human.board.cells.keys.sample(1)
-    # require 'pry'; binding.pry
     if !@human.board.cells[cpu_input.join].fired_upon?
       @human.board.cells[cpu_input.join].fire_upon
       if @human.board.cells[cpu_input.join].render == "M"
@@ -172,13 +71,38 @@ class Game
         puts "My shot on #{cpu_input.join} was a HIT."
       else
         @human.board.cells[cpu_input.join].render == "X"
-        puts "My shot on #{cpu_input.join} sunk your battleship."
+        if @human_cruiser.sunk? 
+          puts "My shot on #{cpu_input.join} sunk your #{@human_cruiser.name}"
+        else
+          puts "My shot on #{cpu_input.join} sunk your #{@human_submarine.name}"
+        end
       end
     else
       cpu_turn
     end
   end
 
+  def game_over
+    until (@human_cruiser.sunk? && @human_submarine.sunk?) || (@cpu_cruiser.sunk? && @cpu_submarine.sunk?) do
+      # display_boards
+      sleep(1)
+      player_turn
+      sleep(2)
+      if @cpu_cruiser.sunk? && @cpu_submarine.sunk?
+        puts "NOOOOOOOOOO! You Win! Good job nerd!"
+        puts "GAME OVER! Play Again?"
+        break
+      end
+      cpu_turn
+      sleep(1)
+      if @human_cruiser.sunk? && @human_submarine.sunk?
+        puts "Haha Loser! I Win!"
+        puts "GAME OVER! Play Again?"
+        break
+      end
+    end
+  end
+  
   
   # helper methods
   
@@ -230,11 +154,16 @@ class Game
   def place_human_cruiser
     puts "I have laid out my ships on the grid. You now need to lay out your two ships.
     The Cruiser is three units long and the Submarine is two units long.
-      1 2 3 4
-    A . . . .
-    B . . . .
-    C . . . .
-    D . . . .
+          |  1  |  2  |  3  |  4  |
+        --|-----|-----|-----|-----|
+      A   |     |     |     |     |
+        --|-----|-----|-----|-----|
+      B   |     |     |     |     |
+        --|-----|-----|-----|-----|
+      C   |     |     |     |     |
+        --|-----|-----|-----|-----|
+      D   |     |     |     |     |
+        --|-----|-----|-----|-----|
     Enter the squares for the Cruiser (3 spaces):
     >"
     @human_cruiser

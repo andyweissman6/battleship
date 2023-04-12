@@ -96,8 +96,8 @@ RSpec.describe Board do
 
     it "will render an empty board" do
       board.place(cruiser, ["A1", "A2", "A3"])
-      expect(board.render).to eq("  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n")
-      expect(board.render(true)).to eq("  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n")
+      expect(board.render).to eq("+---+---+---+---+---+\n| + | 1 | 2 | 3 | 4 |\n+---+---+---+---+---+\n| A | . | . | . | . |\n+---+---+---+---+---+\n| B | . | . | . | . |\n+---+---+---+---+---+\n| C | . | . | . | . |\n+---+---+---+---+---+\n| D | . | . | . | . |\n+---+---+---+---+---+\n")
+      expect(board.render(true)).to eq("+---+---+---+---+---+\n| + | 1 | 2 | 3 | 4 |\n+---+---+---+---+---+\n| A | S | S | S | . |\n+---+---+---+---+---+\n| B | . | . | . | . |\n+---+---+---+---+---+\n| C | . | . | . | . |\n+---+---+---+---+---+\n| D | . | . | . | . |\n+---+---+---+---+---+\n")
     end
 
     it "will render hit (H), miss (M), sunk (X) on rendered boards" do
@@ -116,9 +116,9 @@ RSpec.describe Board do
       cell_5.fire_upon
       cell_6.fire_upon
       
-      expect(board.render).to eq("  1 2 3 4 \nA H H . M \nB . . . . \nC X X . . \nD . . . . \n")
+      expect(board.render).to eq("+---+---+---+---+---+\n| + | 1 | 2 | 3 | 4 |\n+---+---+---+---+---+\n| A | H | H | . | M |\n+---+---+---+---+---+\n| B | . | . | . | . |\n+---+---+---+---+---+\n| C | X | X | . | . |\n+---+---+---+---+---+\n| D | . | . | . | . |\n+---+---+---+---+---+\n")
       cell_3.fire_upon
-      expect(board.render).to eq("  1 2 3 4 \nA X X X M \nB . . . . \nC X X . . \nD . . . . \n")
+      expect(board.render).to eq("+---+---+---+---+---+\n| + | 1 | 2 | 3 | 4 |\n+---+---+---+---+---+\n| A | X | X | X | M |\n+---+---+---+---+---+\n| B | . | . | . | . |\n+---+---+---+---+---+\n| C | X | X | . | . |\n+---+---+---+---+---+\n| D | . | . | . | . |\n+---+---+---+---+---+\n")
     end
   end
 

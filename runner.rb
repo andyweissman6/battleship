@@ -11,5 +11,5 @@ human_player = Player.new
 
 game = Game.new(cpu_player, human_player)
 
-puts game.start_game
+puts game.play_game
 
