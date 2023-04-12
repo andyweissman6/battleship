@@ -27,6 +27,97 @@ class Game
     sleep(2)
     display_boards
     sleep(2)
+    cpu_turn
+    sleep(2)
+    player_turn
+    sleep(2)
+    display_boards
+    sleep(2)
+    cpu_turn
+    sleep(1)
+    display_boards
+    sleep(2)
+    player_turn
+    sleep(2)
+    display_boards
+    sleep(2)
+    cpu_turn
+    sleep(2)
+    player_turn
+    sleep(2)
+    display_boards
+    sleep(2)
+    cpu_turn
+    sleep(1)
+    display_boards
+    sleep(2)
+    player_turn
+    sleep(2)
+    display_boards
+    sleep(2)
+    cpu_turn
+    sleep(2)
+    player_turn
+    sleep(2)
+    display_boards
+    sleep(2)
+    cpu_turn
+    sleep(1)
+    display_boards
+    sleep(2)
+    player_turn
+    sleep(2)
+    display_boards
+    sleep(2)
+    cpu_turn
+    sleep(2)
+    player_turn
+    sleep(2)
+    display_boards
+    sleep(2)
+    cpu_turn
+    sleep(1)
+    display_boards
+    sleep(2)
+    player_turn
+    sleep(2)
+    display_boards
+    sleep(2)
+    cpu_turn
+    sleep(1)
+    display_boards
+    sleep(2)
+    player_turn
+    sleep(2)
+    display_boards
+    sleep(2)
+    cpu_turn
+    sleep(1)
+    display_boards
+    sleep(2)
+    player_turn
+    sleep(2)
+    display_boards
+    sleep(2)
+    cpu_turn
+    sleep(1)
+    display_boards
+    sleep(2)
+    player_turn
+    sleep(2)
+    display_boards
+    sleep(2)
+    cpu_turn
+    sleep(1)
+    display_boards
+    sleep(2)
+    player_turn
+    sleep(2)
+    display_boards
+    sleep(2)
+    cpu_turn
+    sleep(2)
+    display_boards
     main_menu
   end
   
@@ -34,7 +125,7 @@ class Game
   
   def main_menu
   # def main_menu(input)
-  # require 'pry'; binding.pry
+  require 'pry'; binding.pry
   welcome_screen
   play_quit_invalid_input
   end
@@ -185,6 +276,11 @@ class Game
   end
 end
 
+# @human_cruiser.sunk? && human_submarine.sunk? || @cpu_cruiser.sunk? && @cpu_submarine.sunk?
+# need loop for turns
+# need loop for until cruiser+submarine are both sunk for either cpu or human
+
+# 
 
 #end game method- take in human and cpu ship instances.  
 #once either (human_sub && human_cruiser) || (cpu_sub && cpu_cruiser) == sink
