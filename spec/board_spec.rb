@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 
+
 RSpec.describe Board do
   let(:board) {Board.new}
 
@@ -47,6 +48,7 @@ RSpec.describe Board do
       expect(board.valid_placement?(submarine, ["A1", "C1"])).to eq(false)
       expect(board.valid_placement?(cruiser, ["A3", "A2", "A1"])).to eq(false)
       expect(board.valid_placement?(submarine, ["C1", "B1"])).to eq(false)
+      expect(board.valid_placement?(submarine, ["A1", "B1"])).to eq(true)
     end
 
     it "can't be diagonal" do
@@ -97,7 +99,7 @@ RSpec.describe Board do
     it "will render an empty board" do
       board.place(cruiser, ["A1", "A2", "A3"])
       expect(board.render).to eq("+---+---+---+---+---+\n| + | 1 | 2 | 3 | 4 |\n+---+---+---+---+---+\n| A | . | . | . | . |\n+---+---+---+---+---+\n| B | . | . | . | . |\n+---+---+---+---+---+\n| C | . | . | . | . |\n+---+---+---+---+---+\n| D | . | . | . | . |\n+---+---+---+---+---+\n")
-      expect(board.render(true)).to eq("+---+---+---+---+---+\n| + | 1 | 2 | 3 | 4 |\n+---+---+---+---+---+\n| A | S | S | S | . |\n+---+---+---+---+---+\n| B | . | . | . | . |\n+---+---+---+---+---+\n| C | . | . | . | . |\n+---+---+---+---+---+\n| D | . | . | . | . |\n+---+---+---+---+---+\n")
+      expect(board.render(true)).to eq("+---+---+---+---+---+\n| + | 1 | 2 | 3 | 4 |\n+---+---+---+---+---+\n| A | #{'S'.colorize(:yellow)} | #{'S'.colorize(:yellow)} | #{'S'.colorize(:yellow)} | . |\n+---+---+---+---+---+\n| B | . | . | . | . |\n+---+---+---+---+---+\n| C | . | . | . | . |\n+---+---+---+---+---+\n| D | . | . | . | . |\n+---+---+---+---+---+\n")
     end
 
     it "will render hit (H), miss (M), sunk (X) on rendered boards" do
@@ -116,9 +118,9 @@ RSpec.describe Board do
       cell_5.fire_upon
       cell_6.fire_upon
       
-      expect(board.render).to eq("+---+---+---+---+---+\n| + | 1 | 2 | 3 | 4 |\n+---+---+---+---+---+\n| A | H | H | . | M |\n+---+---+---+---+---+\n| B | . | . | . | . |\n+---+---+---+---+---+\n| C | X | X | . | . |\n+---+---+---+---+---+\n| D | . | . | . | . |\n+---+---+---+---+---+\n")
+      expect(board.render).to eq("+---+---+---+---+---+\n| + | 1 | 2 | 3 | 4 |\n+---+---+---+---+---+\n| A | #{'H'.colorize(:green)} | #{'H'.colorize(:green)} | . | #{'M'.colorize(:red)} |\n+---+---+---+---+---+\n| B | . | . | . | . |\n+---+---+---+---+---+\n| C | X | X | . | . |\n+---+---+---+---+---+\n| D | . | . | . | . |\n+---+---+---+---+---+\n")
       cell_3.fire_upon
-      expect(board.render).to eq("+---+---+---+---+---+\n| + | 1 | 2 | 3 | 4 |\n+---+---+---+---+---+\n| A | X | X | X | M |\n+---+---+---+---+---+\n| B | . | . | . | . |\n+---+---+---+---+---+\n| C | X | X | . | . |\n+---+---+---+---+---+\n| D | . | . | . | . |\n+---+---+---+---+---+\n")
+      expect(board.render).to eq("+---+---+---+---+---+\n| + | 1 | 2 | 3 | 4 |\n+---+---+---+---+---+\n| A | X | X | X | #{'M'.colorize(:red)} |\n+---+---+---+---+---+\n| B | . | . | . | . |\n+---+---+---+---+---+\n| C | X | X | . | . |\n+---+---+---+---+---+\n| D | . | . | . | . |\n+---+---+---+---+---+\n")
     end
   end
 
@@ -126,7 +128,7 @@ RSpec.describe Board do
   let(:cruiser) {Ship.new("Cruiser", 3)}
   let(:submarine) {Ship.new("Submarine", 2)}
 
-    it "#length_equals_ship" do
+    it "#length_equals_ship/2" do
       board.place(cruiser, ["A1", "A2", "A3"])
       board.place(submarine, ["A1", "A2"])
 
@@ -134,9 +136,26 @@ RSpec.describe Board do
       expect(board.length_equals_ship(submarine, ["A1", "A2"])).to eq(true)
       expect(board.length_equals_ship(cruiser, ["A1", "A2"])).to eq(false)
     end
+
+    it "#overlapping?/2" do
+      board.place(cruiser, ["A1", "A2", "A3"])
+      expect(board.overlapping?(submarine, ["A1", "B1"])).to eq(false)
+    end
+
+    it "#consecutive_coordinates/2" do
+      expect(board.consecutive_coordinates(submarine, ["A1", "C1"])).to eq(false)
+      expect(board.consecutive_coordinates(cruiser, ["A3", "A2", "A1"])).to eq(false)
+      expect(board.consecutive_coordinates(submarine, ["A1", "B1"])).to eq(true)
+      expect(board.consecutive_coordinates(cruiser, ["D1", "D2", "D3"])).to eq(true)
+    end
+
+    it "#all_valid_coordinates?/2" do
+      expect(board.all_valid_coordinates?(submarine, ["A1", "A2", "A55"])).to eq(false)
+      expect(board.all_valid_coordinates?(cruiser, ["B1", "C1", "D11"])).to eq(false)
+      expect(board.all_valid_coordinates?(submarine, ["A1", "A2", "A3"])).to eq(true)
+      expect(board.all_valid_coordinates?(cruiser, ["B1", "C1", "D1"])).to eq(true)
+    end
   end
 end
-## add tests for helper methods in own describe block
-# consecutive_coordinates(ship, coordinates)
-# all_valid_coordinates?(ship, coordinates)
+
 

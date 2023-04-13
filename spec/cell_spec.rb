@@ -1,11 +1,10 @@
 require 'spec_helper'
 
-
 RSpec.describe Cell do
   let(:cell) {Cell.new("B4")}
   let(:cruiser) {Ship.new("Cruiser", 3)}
 
-  describe "#iteration 1: create Cell object" do
+  describe "create Cell object" do
     it "exists" do
       expect(cell).to be_a(Cell)
     end
@@ -30,7 +29,6 @@ RSpec.describe Cell do
   end
   
   describe "#place_ship/1" do
-  #/1 = 1 argument
     it "places ship" do
       cell.place_ship(cruiser)
       expect(cell.empty?).to eq(false)
@@ -46,7 +44,6 @@ RSpec.describe Cell do
 
   describe "#fire_upon" do
     it "fires upon a cell" do
-      # require 'pry'; binding.pry
       cell.place_ship(cruiser)
       cell.fire_upon
       expect(cell.ship.health).to eq(2)
@@ -64,7 +61,7 @@ RSpec.describe Cell do
 
     it "fires upon an empty cell and misses" do
       cell_1.fire_upon
-      expect(cell_1.render).to eq("M") 
+      expect(cell_1.render).to eq("M".colorize(:red)) 
     end
 
     it "renders a new cell" do
@@ -74,13 +71,13 @@ RSpec.describe Cell do
 
     it "renders a 'S' if cell holds ship and access is available" do
       cell_2.place_ship(cruiser)
-      expect(cell_2.render(true)).to eq("S")
+      expect(cell_2.render(true)).to eq("S".yellow)
     end
 
     it "renders a 'H' if the cell has been fired upon, contains a ship (the shot was a hit)" do
       cell_2.place_ship(cruiser)
       cell_2.fire_upon
-      expect(cell_2.render).to eq("H")
+      expect(cell_2.render).to eq("H".colorize(:green))
     end
 
     it "ship gets hit 3 times, if sunk? equals true render cell to 'X' " do
