@@ -98,6 +98,7 @@ class Game
       sleep(1)
       player_turn
       sleep(2)
+      display_boards
       if @cpu_cruiser.sunk? && @cpu_submarine.sunk?
         puts "\n"
         puts "NOOOOOOOOOO! You Win! Good job nerd!"
@@ -106,6 +107,7 @@ class Game
       end
       cpu_turn
       sleep(1)
+      display_boards
       if @human_cruiser.sunk? && @human_submarine.sunk?
         puts "\n"
         puts "Haha Loser! I Win!"
