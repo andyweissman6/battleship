@@ -28,7 +28,6 @@ class Game
   welcome_screen
   play_quit_invalid_input
   end
-end
 
   def place_cpu_ships
     place_cpu_cruiser
