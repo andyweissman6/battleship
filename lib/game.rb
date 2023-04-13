@@ -15,6 +15,7 @@ class Game
       place_cpu_ships
       place_human_ships
       game_over
+      puts "\n"
       puts "Do you want to play again? (y/n)"
       response = gets.chomp.downcase
       break unless response == "y"
@@ -46,14 +47,18 @@ class Game
     if @cpu.board.valid_coordinate?(human_input) && !@cpu.board.cells[human_input].fired_upon?
       @cpu.board.cells[human_input].fire_upon
       if @cpu.board.cells[human_input].render == "M".red
+        puts "\n"
         puts "Your shot on #{human_input} was a MISS."
       elsif @cpu.board.cells[human_input].render == "H".green
+        puts "\n"
         puts "Your shot on #{human_input} was a HIT."
       else
         @cpu.board.cells[human_input].render == "X"
         if @cpu_cruiser.sunk? 
+          puts "\n"
           puts "Your shot on #{human_input} sunk my #{@cpu_cruiser.name}"
         else
+          puts "\n"
           puts "Your shot on #{human_input} sunk my #{@cpu_submarine.name}"
         end
       end
@@ -68,14 +73,18 @@ class Game
     if !@human.board.cells[cpu_input.join].fired_upon?
       @human.board.cells[cpu_input.join].fire_upon
       if @human.board.cells[cpu_input.join].render == "M".red
+        puts "\n"
         puts "My shot on #{cpu_input.join} was a MISS."
       elsif @human.board.cells[cpu_input.join].render == "H".green
+        puts "\n"
         puts "My shot on #{cpu_input.join} was a HIT."
       else
         @human.board.cells[cpu_input.join].render == "X"
         if @human_cruiser.sunk? 
+          puts "\n"
           puts "My shot on #{cpu_input.join} sunk your #{@human_cruiser.name}"
         else
+          puts "\n"
           puts "My shot on #{cpu_input.join} sunk your #{@human_submarine.name}"
         end
       end
@@ -90,6 +99,7 @@ class Game
       player_turn
       sleep(2)
       if @cpu_cruiser.sunk? && @cpu_submarine.sunk?
+        puts "\n"
         puts "NOOOOOOOOOO! You Win! Good job nerd!"
         puts "GAME OVER! Play Again?"
         break
@@ -97,6 +107,7 @@ class Game
       cpu_turn
       sleep(1)
       if @human_cruiser.sunk? && @human_submarine.sunk?
+        puts "\n"
         puts "Haha Loser! I Win!"
         puts "GAME OVER! Play Again?"
         break
@@ -107,17 +118,6 @@ class Game
   # helper methods
   
   def welcome_screen
-    puts '                          |  1  |  2  |  3  |  4  |
-                        --|-----|-----|-----|-----|
-                      A   |     |     |     |     |
-                        --|-----|-----|-----|-----|
-                      B   |     |     |     |     |
-                        --|-----|-----|-----|-----|
-                      C   |     |     |     |     |
-                        --|-----|-----|-----|-----|
-                      D   |     |     |     |     |
-                        --|-----|-----|-----|-----| '
-
       puts "************************************************************"
       puts "Welcome to BATTLESHIP
       Enter p to play. Enter q to quit." 
@@ -150,6 +150,7 @@ class Game
   end
 
   def place_human_cruiser
+    puts "\n"
     puts "I have laid out my ships on the grid. You now need to lay out your two ships.
     The Cruiser is three units long and the Submarine is two units long.
           |  1  |  2  |  3  |  4  |
@@ -192,6 +193,7 @@ class Game
   def play_quit_invalid_input
     input = gets.chomp
     if input == 'p'
+      puts "\n"
       puts "Let's play"
     elsif input == 'q'
       puts "Quitter"
