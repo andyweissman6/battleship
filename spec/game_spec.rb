@@ -25,13 +25,6 @@ RSpec.describe Game do
       expect(cpu_player).to be_a(Player)
       expect(game).to be_a(Game)
     end
-
-    # it "checks main menu human input" do
-    #   human_player = Player.new
-    #   cpu_player = Player.new
-    #   game = Game.new(cpu_player, human_player)
-      
-    #   expect(game.main_menu('p')).to eq("Let's play")
-    # end
   end
 end
+

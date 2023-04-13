@@ -1,3 +1,5 @@
+require 'colorize'
+
 class Cell
 attr_reader :coordinate,
             :ship,
@@ -30,20 +32,16 @@ attr_reader :coordinate,
 
   def render(access = false)
     if access == true && !empty? && !fired_upon?
-      "S"
+      "S".yellow
     elsif !fired_upon?
       "."
     elsif fired_upon? && empty?
-      "M"
+      "M".red
     elsif @ship.sunk? 
       "X"
     else 
-      "H"
+      "H".green
     end
   end
 end
 
-# ”.” if the cell has not been fired upon.
-# “M” if the cell has been fired upon and it does not contain a ship (the shot was a miss).
-# “H” if the cell has been fired upon and it contains a ship (the shot was a hit).
-# “X” if the cell has been fired upon and its ship has been sunk.

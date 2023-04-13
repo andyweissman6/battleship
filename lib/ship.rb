@@ -15,10 +15,5 @@ class Ship
   
   def hit
     @health -= 1
-  end
-  
+  end  
 end
-
-
-# require 'pry'; binding.pry
-# require 'pry'; binding.pry
